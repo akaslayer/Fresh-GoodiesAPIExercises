@@ -49,21 +49,20 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Response<Optional<Product>>> updateProduct(@PathVariable("id") int id, @RequestBody Product product){
-        Optional<Product> data = productService.updateProduct(id,product);
-        if(data.isPresent()){
+    public ResponseEntity<Response<Product>> updateProduct(@PathVariable("id") int id, @RequestBody Product product){
+        product.setId(id);
+        Product data = productService.updateProduct(id,product);
+//        if(data.isPresent()){
             return Response.successfulResponse("Product has been updated",productService.updateProduct(id,product));
-        }
-        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Product not found",data);
+//        }
+//        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Product not found",data);
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response<Optional<Product>>> deleteProduct(@PathVariable("id") int id){
-        Optional<Product> data = productService.deleteProduct(id);
-        if(data.isPresent()){
-            return Response.successfulResponse("Product has been deleted",data);
-        }
-        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Product not found",data);
+    public ResponseEntity<Response<Product>> deleteProduct(@PathVariable("id") long id){
+        return Response.successfulResponse("Product has been deleted",productService.deleteProduct(id));
+
+//        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Product not found",data);
     }
 }

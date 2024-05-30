@@ -10,11 +10,11 @@ public interface ProductService {
     public List<Product> getProduct();
     public Product addProduct(Product product);
 
-    public Optional<Product> getProductById(int id);
+    public Optional<Product> getProductById(long id);
 
     public List<Product> getProductByName(String name);
 
-    public Optional<Product> updateProduct(int id, Product product);
+    public Product updateProduct(long id, Product product);
 
-    public Optional<Product> deleteProduct(int id);
+    public Product deleteProduct(long id);
 }

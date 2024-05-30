@@ -3,9 +3,11 @@ package com.spring_boot_day2.freshGoodiesAPIExercises.carts.services.impl;
 import com.spring_boot_day2.freshGoodiesAPIExercises.carts.dto.CartDetail;
 import com.spring_boot_day2.freshGoodiesAPIExercises.carts.mapper.CartDetailMapper;
 import com.spring_boot_day2.freshGoodiesAPIExercises.carts.model.Cart;
+import com.spring_boot_day2.freshGoodiesAPIExercises.carts.repository.CartRepository;
 import com.spring_boot_day2.freshGoodiesAPIExercises.carts.services.CartService;
 import com.spring_boot_day2.freshGoodiesAPIExercises.exceptions.InputException;
 import com.spring_boot_day2.freshGoodiesAPIExercises.products.model.Product;
+import com.spring_boot_day2.freshGoodiesAPIExercises.products.repository.ProductRepository;
 import com.spring_boot_day2.freshGoodiesAPIExercises.products.services.ProductService;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class CartServiceImpl implements CartService {
 
     public final ProductService productService;
     private final CartDetailMapper cartDetailMapper;
+    private CartRepository cartRepository;
+
+
 
 
     public static int max = 1;
@@ -30,9 +35,10 @@ public class CartServiceImpl implements CartService {
     private List<Cart> cartList = new ArrayList<>();
 
 
-    public CartServiceImpl(ProductService productService, CartDetailMapper cartDetailMapper) {
+    public CartServiceImpl(ProductService productService, CartDetailMapper cartDetailMapper, CartRepository cartRepository) {
         this.productService = productService;
         this.cartDetailMapper = cartDetailMapper;
+        this.cartRepository = cartRepository;
     }
 
     public List<CartDetail> getCart() {
@@ -62,7 +68,7 @@ public class CartServiceImpl implements CartService {
             throw new InputException(HttpStatus.NOT_FOUND,"Product with ID " + cart.getProductId() + " don't exist.");
         }
         cart.setId(max);
-        cartList.add(cart);
+        cartRepository.save(cart);
         max++;
         return cart;
     }
