@@ -43,20 +43,21 @@ public class CartController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Response<Optional<Cart>>> updateCart(@RequestBody Cart cart){
-        Optional<Cart> data = cartService.updateCart(cart);
-        if(data.isPresent()){
-            return Response.successfulResponse("Cart has been updated",data);
-        }
-        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Cart not found",data);
+    public ResponseEntity<Response<Cart>> updateCart(@PathVariable("id") long id, @RequestBody Cart cart){
+        cart.setId(id);
+        Cart data = cartService.updateCart(id,cart);
+
+        return Response.successfulResponse("Cart has been updated",data);
+
+//        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Cart not found",data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response<Optional<Cart>>> deleteCart(@PathVariable("id") int id){
-        Optional<Cart> data = cartService.deleteCart(id);
-        if(data.isPresent()){
+    public ResponseEntity<Response<Cart>> deleteCart(@PathVariable("id") long id){
+        Cart data = cartService.deleteCart(id);
+//        if(data.isPresent()){
             return Response.successfulResponse("Cart has been deleted",data);
-        }
-        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Cart not found",data);
+//        }
+//        return Response.failedResponse(HttpStatus.NOT_FOUND.value(), "Cart not found",data);
     }
 }

@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface CartService {
     public List<CartDetail> getCart();
     public Cart addCart(Cart cart);
-    public Optional<Cart> updateCart(Cart cart);
+    public Cart updateCart(long id, Cart cart);
 
-    public Optional<Cart> deleteCart(int id);
+    public Cart deleteCart(long id);
 
 
 }
