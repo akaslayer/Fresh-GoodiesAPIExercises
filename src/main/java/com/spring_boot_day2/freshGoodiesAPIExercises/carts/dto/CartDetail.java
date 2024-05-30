@@ -1,4 +1,6 @@
-package com.spring_boot_day2.freshGoodiesAPIExercises.products.model;
+package com.spring_boot_day2.freshGoodiesAPIExercises.carts.dto;
+
+
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -10,29 +12,49 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @Getter
-public class Product {
+public class CartDetail {
     private long id;
 
-    @NonNull
-    @NotBlank(message = "Product name is required")
-    private String name;
 
     @NonNull
-    @NotBlank(message = "Category name is required")
-    private String category;
+    @NotBlank(message = "Quantity is required")
+    private int quantity;
+
+
+    @NotNull(message = "Product is required")
+    private  ProductCart productCart;
 
     @NonNull
-    @NotBlank(message = "name is required")
-    private String imageUrl;
+    @NotBlank(message = "Product id is required")
+    private long productId;
 
-    @Min(value = 0, message="Price must be non-negative")
-    private double price;
 
-    @Min(value = 0, message="weight must be non-negative")
-    private double weight;
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProductCart {
+        @NonNull
+        @NotBlank(message = "Product name is required")
+        private String name;
 
-    @NotNull(message = "Metadata is required")
-    private Metadata metadata;
+        @NonNull
+        @NotBlank(message = "Category name is required")
+        private String category;
+
+        @NonNull
+        @NotBlank(message = "name is required")
+        private String imageUrl;
+
+        @Min(value = 0, message = "Price must be non-negative")
+        private double price;
+
+        @Min(value = 0, message = "weight must be non-negative")
+        private double weight;
+
+        @NotNull(message = "Metadata is required")
+        private Metadata metadata;
+    }
+
 
     @Data
     @NoArgsConstructor
@@ -60,7 +82,3 @@ public class Product {
         private int carbs;
     }
 }
-
-
-
-

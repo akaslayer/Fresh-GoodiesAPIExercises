@@ -1,10 +1,17 @@
 package com.spring_boot_day2.freshGoodiesAPIExercises.exceptions;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Collections;
 import java.util.List;
 
+
+@EqualsAndHashCode(callSuper = true)
+@Setter
+@Data
 public class InputException extends RuntimeException {
     private HttpStatus httpStatus;
     private List<String> errors;
